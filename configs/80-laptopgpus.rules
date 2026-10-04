@@ -1,0 +1,7 @@
+KERNEL=="card*", ATTRS{vendor}=="0x1002", \
+        SUBSYSTEM=="drm", SUBSYSTEMS=="pci", \
+        SYMLINK+="dri/amd-igpu"
+
+KERNEL=="card*", ATTRS{vendor}=="0x10de", \
+        SUBSYSTEM=="drm", SUBSYSTEMS=="pci", \
+        SYMLINK+="dri/nvidia-dgpu"
