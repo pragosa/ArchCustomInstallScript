@@ -98,6 +98,10 @@ if [[ ! -f ~/.ssh/id_ed25519 ]]; then
     ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519
 fi
 
+# git config basic
+git config --global init.defaultBranch main
+git config --global push.autoSetupRemote true
+
 # tailscale
 echo "Enabling tailscale service"
 sudo systemctl enable --now tailscaled
