@@ -45,12 +45,15 @@ if ask_yes "==> Install Desktop environment: "; then
     systemctl --user enable hyprpolkitagent
 fi
 
+
+# Hardware specific configs/pkgs
 case ${HOSTNAME} in
     # laptop
     arsene)
         echo "${BLUE}==> Installing hardware specific pkgs (${HOSTNAME})${RESET}"
         sudo pacman -S --needed "${HARDWARE_PKGS_LAPTOP[@]}"
-        sudo systemctl enable --now bluetooth
+        sudo systemctl enable --now bluetooth acpid
+        sudo install -Dm644 configs/80-laptopgpus.rules /etc/udev/rules.d/80-laptopgpus.rules
     ;;
 
     # server
@@ -68,9 +71,15 @@ esac
 # Make xdg default folders
 xdg-user-dirs-update
 
+# Font config system-wide
+echo "Font config system ..."
+sudo install -Dm644 configs/52-defaultfonts.conf /etc/fonts/conf.d/52-defaultfonts.conf
+
 # Enable ssh-agent
 echo "Enabling ssh-agent service (requires logout)"
 sudo systemctl --global enable ssh-agent
+sudo install -Dm644 configs/ssh-agent.sh /etc/profile.d/ssh-agent.sh
+sudo install -Dm644 configs/10-ssh-client.conf /etc/ssh/ssh_config.d/10-ssh-client.conf
 
 # Enable tlp service (power management) (see arch wiki tlp - rfkill?)
 if pacman -Qeq tlp > /dev/null 2>&1; then 
@@ -81,5 +90,10 @@ fi
 
 echo "${BLUE}Creating SSH key ...${RESET}"
 if [[ ! -f ~/.ssh/id_ed25519 ]]; then
-      ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519
-  fi
+    install -d -m 700 ~/.ssh
+    ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519
+fi
+
+# tailscale
+echo "Enabling tailscale service"
+sudo systemctl enable --now tailscaled
