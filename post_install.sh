@@ -106,6 +106,9 @@ git config --global push.autoSetupRemote true
 echo "Enabling tailscale service"
 sudo systemctl enable --now tailscaled
 
+# Syncthing
+sudo systemctl enable --now "syncthing@${USER}"
+
 # Snapshot current packages
 echo "${YELLOW}Snapshotting package list ...${RESET}"
 pacman -Qeq > "${HOME}/.packagelistsnapshot"
