@@ -115,3 +115,4 @@ pacman -Qeq > "${HOME}/.packagelistsnapshot"
 
 
 echo "Done! (reboot to apply some configurations)"
+echo "Syncthing config is in the dotfiles"
