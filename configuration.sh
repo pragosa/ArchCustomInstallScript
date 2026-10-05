@@ -18,8 +18,6 @@ SWAPFILE_SIZE=16G
 
 PORT_SSHCONFIG=15222
 
-REFLECTOR_COUNTRY=Portugal,Spain
-
 HOOKS_BASE="base udev autodetect microcode modconf kms keyboard keymap consolefont block"
 
 # For later, dont change

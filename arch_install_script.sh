@@ -53,7 +53,7 @@ mount --mkdir -o fmask=0137,dmask=0027 "$PART_BOOT" /mnt/boot
 
 # 6. install essential packages
 check_ucode
-reflector --country ${REFLECTOR_COUNTRY} --latest 20 --protocol https --age 12 --sort rate --save /etc/pacman.d/mirrorlist
+reflector --latest 20 --protocol https --age 12 --sort rate --save /etc/pacman.d/mirrorlist
 pacstrap -K /mnt "${BASE_PACKAGES[@]}" "$UCODE_PKG"
 
 
@@ -168,9 +168,6 @@ X11Forwarding no
 # WARN: This should be temporary
 PasswordAuthentication yes
 EOF
-
-
-
 
 
 # closing
