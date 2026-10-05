@@ -11,9 +11,9 @@
 set -euo pipefail
 
 cd "$(dirname "$0")"
-source configuration.sh
-source helper_functions.sh
-source packages.conf
+source src/configuration.sh
+source src/helper_functions.sh
+source pkgs/base_pkgs.conf
 
 if ! ask_yes "Did you verify the configuration variables?"; then
     die "Edit configuration.sh first."
