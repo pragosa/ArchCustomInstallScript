@@ -16,7 +16,7 @@ fi
 
 # update pkgs
 pacman -Syu
-pacman -S "${BASE_PACKAGES[@]}"
+pacman -S "${BASE_PACKAGES[@]}" "${DEFAULT_PKGS[@]}" "${LSPS[@]}" "${GRAPHICAL[@]}" "${FONTS[@]}" "${SYSTEM_AUDIO[@]}" "${TEMP_PKGS[@]}"
 reflector --latest 20 --protocol https --age 12 --sort rate --save /etc/pacman.d/mirrorlist
 
 # Override wsl locale
