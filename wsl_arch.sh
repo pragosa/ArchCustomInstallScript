@@ -16,7 +16,7 @@ fi
 
 # update pkgs
 pacman -Syu
-pacman -S "${BASE_PACKAGES[@]}" "${DEFAULT_PKGS[@]}" "${LSPS[@]}" "${GRAPHICAL[@]}" "${FONTS[@]}" "${SYSTEM_AUDIO[@]}" "${TEMP_PKGS[@]}"
+pacman -S --needed "${BASE_PACKAGES[@]}" "${DEFAULT_PKGS[@]}" "${LSPS[@]}" "${GRAPHICAL[@]}" "${FONTS[@]}" "${SYSTEM_AUDIO[@]}" "${TEMP_PKGS[@]}"
 reflector --latest 20 --protocol https --age 12 --sort rate --save /etc/pacman.d/mirrorlist
 
 # Override wsl locale
@@ -45,15 +45,17 @@ useradd -m -G "$USER_GROUPS" -s "$USER_SHELL" "$USERNAME_NAME"
 
 # User and root password
 echo "Root Password:"
-until arch-chroot /mnt passwd; do echo "Try again."; done
+until passwd; do echo "Try again."; done
 
 echo "$USERNAME_NAME Password:"
-until arch-chroot /mnt passwd "$USERNAME_NAME"; do echo "Try again."; done
+until passwd "$USERNAME_NAME"; do echo "Try again."; done
 
 # Wsl default user
 cat > /etc/wsl.conf <<EOF
+[boot]
+systemd=true
 [user]
-default = $USERNAME_NAME
+default=$USERNAME_NAME
 EOF
 
 # openssh config
