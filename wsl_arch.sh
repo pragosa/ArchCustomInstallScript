@@ -41,7 +41,14 @@ echo "%wheel ALL=(ALL:ALL) ALL" > /etc/sudoers.d/wheel
 chmod 440 /etc/sudoers.d/wheel
 
 # Create user
-useradd -m -G "$USER_GROUPS" -s "$USER_SHELL" "$USERNAME_NAME"
+if ! users | grep $USERNAME_NAME; then
+    useradd -m -G "$USER_GROUPS" -s "$USER_SHELL" "$USERNAME_NAME"
+    echo "Created user: ${USERNAME_NAME}"
+
+else
+    echo "User ${USERNAME_NAME} already exists"
+
+fi
 
 # User and root password
 echo "Root Password:"

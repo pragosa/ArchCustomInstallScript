@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # TODO: Verify variables
-USERNAME_NAME="PUT USERNAME HERE"
+USERNAME_NAME="pragosa"
 
 TIMEZONE="Europe/Lisbon"
 
